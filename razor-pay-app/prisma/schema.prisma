@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Post{
+   id    String                           @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  content String 
+  ImageUrl String? @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrAdaL6PJG6D4peQP_EramZH0Nmzq3RHb9NQ&s")
+  createdAt DateTime @default(now())
+}
