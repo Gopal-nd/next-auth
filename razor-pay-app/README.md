@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+### payment integration rayzor pay app
+** https://youtu.be/f9HGKQ4IKSs?si=355L2O-wuwseDun3
+
 First, run the development server:
 
 ```bash

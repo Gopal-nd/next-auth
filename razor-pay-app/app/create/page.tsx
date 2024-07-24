@@ -4,9 +4,11 @@ import Script from 'next/script';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { log } from 'console';
+import ListofDonations from '@/components/ListofDonations';
 
-function Payment() {
+
+
+export function Payment() {
  const [name, setName] = useState('');
  const [email, setEmail] = useState('');
  const [amount, setAmount] = useState('0');
@@ -21,6 +23,8 @@ function Payment() {
     },
     body: JSON.stringify({
      amount: parseFloat(amount) * 100,
+     name:name,
+     email:email
     }),
    });
 
@@ -47,6 +51,7 @@ const processPayment = async (e: React.FormEvent<HTMLFormElement>) => {
     order_id: orderId,
     handler: async function (response: any) {
      const data = {
+    
       orderCreationId: orderId,
       razorpayPaymentId: response.razorpay_payment_id,
       razorpayOrderId: response.razorpay_order_id,
@@ -86,12 +91,11 @@ const processPayment = async (e: React.FormEvent<HTMLFormElement>) => {
  
  return (
   <>
-   <Script
-    id="razorpay-checkout-js"
-    src="https://checkout.razorpay.com/v1/checkout.js"
-   />
 
-   <section className="min-h-[94vh] flex flex-col gap-6 h-14 mx-5 sm:mx-10 2xl:mx-auto 2xl:w-[1400px] items-center pt-36 ">
+
+   <section className="min-h-[70vh] flex flex-col gap-6 h-14 mx-5 sm:mx-10 2xl:mx-auto 2xl:w-[1400px] items-center pt-3 ">
+    <h1><center>Plant A Tree!
+        <p className='text-2xl text-green-500'>1 Tree = 1Rs</p> </center></h1>
     <form
      className="flex flex-col gap-6 w-full sm:w-80"
      onSubmit={processPayment}
@@ -129,9 +133,10 @@ const processPayment = async (e: React.FormEvent<HTMLFormElement>) => {
       </div>
      </div>
 
-     <Button type="submit">Pay</Button>
+     <Button type="submit">plant</Button>
     </form>
    </section>
+   
   </>
  );
 }

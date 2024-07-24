@@ -14,10 +14,14 @@ datasource db {
 }
 
 
-model Post{
+model payments{
    id    String                           @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  content String 
-  ImageUrl String? @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrAdaL6PJG6D4peQP_EramZH0Nmzq3RHb9NQ&s")
-  createdAt DateTime @default(now())
+   name String 
+   email String
+   amount Int
+   orederId String @unique
+  orderCreationId String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+ createdAt DateTime @default(now())
 }

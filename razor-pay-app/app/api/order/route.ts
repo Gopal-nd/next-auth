@@ -1,5 +1,6 @@
 import Razorpay from 'razorpay';
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/utils/prisma';
 
 const razorpay = new Razorpay({
  key_id: process.env.RAZORPAY_KEY_ID??'',
@@ -7,9 +8,11 @@ const razorpay = new Razorpay({
 });
 
 export async function POST(request: NextRequest) {
- const { amount, currency } = (await request.json()) as {
+ const { amount, currency,name ,email} = (await request.json()) as {
   amount: string;
   currency: string;
+  name:string;
+  email:string
  };
 
  var options = {
@@ -19,5 +22,13 @@ export async function POST(request: NextRequest) {
  };
  const order = await razorpay.orders.create(options);
  console.log(order);
- return NextResponse.json({ orderId: order.id }, { status: 200 });
+ const res =await prisma.payments.create({
+    data:{
+        amount:parseInt(amount)/100,
+        name:name,
+        orederId:order.id,
+        email:email
+    }
+ })
+ return NextResponse.json({ orderId: res.orederId }, { status: 200 });
 }
