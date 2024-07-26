@@ -26,7 +26,7 @@ export const templates = [
     desc: 'Generate trending Instagram hashtags based on your niche.',
     category: 'Social Media',
     icon: 'https://cdn-icons-png.flaticon.com/128/1409/1409946.png',
-    aiPrompt: 'Generate a list of trending Instagram hashtags for the given niche.',
+    aiPrompt: 'Generate some of trending Instagram hashtags for the given topic in rich text editor formate list then with # starting and at the end of each add, ',
     slug: 'instagram-hash-tag-generator',
     form: [
       {
@@ -143,7 +143,7 @@ export const templates = [
     name: 'Rewrite Article (Plagiarism Free)',
     desc: 'Use this tool to rewrite existing articles or blog posts to make them plagiarism-free and bypass AI detectors.',
     category: 'Writing',
-    icon: 'https://cdn-icons-png.flaticon.com/128/6096/6096935.png',
+    icon: 'https://cdn-icons-png.flaticon.com/128/709/709586.png',
     aiPrompt: 'Rewrite the given article to make it plagiarism-free and bypass AI detectors.',
     slug: 'rewrite-article',
     form: [

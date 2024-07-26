@@ -6,6 +6,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ####
 https://youtu.be/egQajXL7nn4?si=5fC4B0a5OtU5e3jz&t=3273
 
+###
+https://youtu.be/egQajXL7nn4?si=tNqJW_QFlbaiqAfC&t=7382
+
 
 First, run the development server:
 
