@@ -16,7 +16,7 @@ const CreateContent = ({params}:{params:{slug:string}}) => {
   const user = useUser();
  
   const email:string|any = user.user?.primaryEmailAddress?.emailAddress
-  console.log('emill is',email)
+  // console.log('emill is',email)
     const [aiOutput, setAioutput] = useState('')
     const [loading, setLoading] =useState(false)
   
@@ -24,9 +24,10 @@ const CreateContent = ({params}:{params:{slug:string}}) => {
 //  const date = new Date()
     async   function userformInput(e:any){
     setLoading(true)
-        // console.log(e.niche)
-        const propt =e.niche+',' +selectedTemplet?.aiPrompt
-        console.log(propt)
+        console.log( 'user input',e)
+        const propt ='"'+e.niche+'",' +selectedTemplet?.aiPrompt
+
+        // console.log(propt)
         const result = await chatSession.sendMessage(propt);
         setAioutput(result.response.text());
   console.log(result.response.text());
@@ -37,7 +38,7 @@ const CreateContent = ({params}:{params:{slug:string}}) => {
     slug:params.slug
   }
   const response =PostDetails(data)
-  console.log(response)
+  // console.log(response)
   setLoading(false)
 
     }

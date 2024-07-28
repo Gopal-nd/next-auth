@@ -23,6 +23,9 @@ const Formsection:FC<Props> = ({slug,loading,userformInput}) => {
     const handleSubmit=(e:any)=>{
         
         e.preventDefault();
+        if(!formdata){
+            return
+        }
         userformInput(formdata)
         
     }
@@ -38,16 +41,17 @@ const Formsection:FC<Props> = ({slug,loading,userformInput}) => {
                                 <div key={index} className='flex flex-col '>
                                 <label className=' font-bold' htmlFor="">{item.label}:</label>
                                 {
-                                    item.field=='input'?
-                                    <Input 
+                                    item.field=='textarea'?
+                                    <Textarea
                                     onChange={HandleChangeEvent}
                                     name={item.name}
                                     required={item.required}
+                                    
                                     className='mb-2' placeholder='Enter your Question...'/>:
                                     item.field=='textarea'?
                                     <Textarea 
                                     name={item.name}
-                                    required={item.required}placeholder='optional...'/>:null
+                                    placeholder='optional...'/>:null
                                 }
                                 </div>
                             ))
