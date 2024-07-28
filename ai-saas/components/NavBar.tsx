@@ -1,3 +1,4 @@
+'use client'
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/tVU6MfqZAg8
@@ -10,8 +11,10 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLab
 import React from "react"
 import { ModeToggle } from "./Toggle"
 import { History, House, Receipt, Settings } from "lucide-react"
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs"
 
 export default function SidNebar() {
+  const user =useUser()
   return (
     <div className="flex  w-full flex-col bg-background">
       <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b bg-background px-4 sm:px-6">
@@ -71,12 +74,22 @@ export default function SidNebar() {
         </div>
         <div className="flex items-center gap-4">
         <ModeToggle />
-          <DropdownMenu>
+        <div>
+
+        <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <div/>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+        </div>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
                 <img
-                  src="placeholder.jpeg"
-                  width={36}
+                  src={user.user?.imageUrl}
+                                    width={36}
                   height={36}
                   alt="Avatar"
                   className="overflow-hidden rounded-full"
@@ -84,14 +97,14 @@ export default function SidNebar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{user.user?.primaryEmailAddress?.emailAddress}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem>{user.user?.fullName}</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </header>
     

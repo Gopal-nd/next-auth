@@ -24,8 +24,8 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
+        <title>AI SAAS</title>
+        <meta name="description" content={'ai saas app'} />
       </head>
       <body
         className={cn(

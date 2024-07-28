@@ -1,15 +1,28 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Formsection from '../../_componets/formsection'
 import OutputSection from '../../_componets/outputSection'
 import { templates } from '@/app/(data)/templet'
 import { chatSession } from '@/utils/ai'
+import axios from 'axios'
+import { useUser } from '@clerk/nextjs'
+import moment from 'moment'
+import PreviousMap from 'postcss/lib/previous-map'
+import prisma from '@/utils/db'
+import { useRouter } from 'next/navigation'
 
 const CreateContent = ({params}:{params:{slug:string}}) => {
+  const router = useRouter()
+  const user = useUser();
+ 
+  const email:string|any = user.user?.primaryEmailAddress?.emailAddress
+  console.log('emill is',email)
     const [aiOutput, setAioutput] = useState('')
     const [loading, setLoading] =useState(false)
+  
     const selectedTemplet = templates.find((item)=>item.slug===params.slug)
- async   function userformInput(e:any){
+//  const date = new Date()
+    async   function userformInput(e:any){
     setLoading(true)
         // console.log(e.niche)
         const propt =e.niche+',' +selectedTemplet?.aiPrompt
@@ -17,10 +30,32 @@ const CreateContent = ({params}:{params:{slug:string}}) => {
         const result = await chatSession.sendMessage(propt);
         setAioutput(result.response.text());
   console.log(result.response.text());
-        setLoading(false)
+  const data ={
+    email:email,
+    prompt:e.niche,
+    dataText:result.response.text(),
+    slug:params.slug
+  }
+  const response =PostDetails(data)
+  console.log(response)
+  setLoading(false)
+
     }
 
+    async function PostDetails(data:any){
+      const res = await axios.post('/api/history',data)
+      return res.data
+    }
+    const isBrowser = typeof window !== 'undefined';
+
+    useEffect(()=>{
+    
+     
+    },[])
   return (
+    <>{
+      isBrowser &&(
+
     <div className='p-5 grid grid-cols-1 md:grid-cols-2 gap-5'>
 
         {/* formsection */}
@@ -32,7 +67,11 @@ const CreateContent = ({params}:{params:{slug:string}}) => {
         <OutputSection aiOutput={aiOutput}/>
     
     </div>
+      )
+    }
+        </>
   )
 }
 
 export default CreateContent
+

@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     
       
-      <div className="hidden w-44 lg:flex min-h-screen  ">
+      <div className="hidden w-44 lg:flex min-h-screen">
         <nav className="hidden flex-col border-r bg-background px-4 py-6 lg:flex lg:w-64 lg:flex-1 lg:gap-6 lg:px-6 lg:py-10">
         <Link
                   href="/dashboard"
@@ -52,6 +52,7 @@ export default function Sidebar() {
                   Settings
                 </Link>
         </nav>
+            
 
       </div>
     

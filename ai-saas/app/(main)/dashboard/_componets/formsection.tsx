@@ -3,6 +3,7 @@ import { templates } from '@/app/(data)/templet'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import React, { FC, useState } from 'react'
 interface Props{
@@ -11,6 +12,8 @@ interface Props{
     loading:boolean
 }
 const Formsection:FC<Props> = ({slug,loading,userformInput}) => {
+    const user =useUser()
+    const email:string|any = user.user?.primaryEmailAddress?.emailAddress
     const [formdata, setFormdata]=useState<any>()
     const HandleChangeEvent=(e:any)=>{
         const {name, value} = e.target;
@@ -28,12 +31,12 @@ const Formsection:FC<Props> = ({slug,loading,userformInput}) => {
     <div className='flex flex-col gap-5 shadow-lg p-5 border rounded-lg'>
                     <Image width={20} alt='image' height={20} src={selectedTemplet?.icon ??''}  />
                     <h2 className='text-2xl font-semibold mt-2 ' >{selectedTemplet?.name}</h2>
-                    <p className=' font-semibold'>{selectedTemplet?.desc}</p>
+                    <p className=''>{selectedTemplet?.desc}</p>
                     <form onSubmit={handleSubmit}>
                         {
                             selectedTemplet?.form.map((item,index)=>(
                                 <div key={index} className='flex flex-col '>
-                                <label className=' font-light' htmlFor="">{item.label}:</label>
+                                <label className=' font-bold' htmlFor="">{item.label}:</label>
                                 {
                                     item.field=='input'?
                                     <Input 
@@ -50,7 +53,8 @@ const Formsection:FC<Props> = ({slug,loading,userformInput}) => {
                             ))
                         }
                         <Button className='mt-3 w-full' type='submit'
-                        disabled={loading}>{loading?'loading..':"Search"}</Button>
+                        disabled={loading||!email}>{
+                            email?loading?'loading..':"Search":'login'}</Button>
                     </form>
 {selectedTemplet?.slug}
     </div>
